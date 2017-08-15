@@ -21,4 +21,9 @@ public class Currency {
         }
         return false;
     }
+    
+    @Override
+    public String toString() {
+    		return this._name;
+    }
 }

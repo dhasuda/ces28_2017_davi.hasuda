@@ -83,13 +83,32 @@ public class lab1Tests {
     // Davi
     @Test
     public void findMoneyInMoneyBag() {
-    	
+    		MoneyBag mb = new MoneyBag();
+    		mb.add(m12CHF);
+    		mb.add(m14BRL);
+    		
+    		assertEquals(m14BRL, mb.findMoney(BRL));
+    		
+    		mb.add(m14CHF);
+    		Money expected = new Money(CHF);
+    		expected.setAmount(26);
+    		assertEquals(expected, mb.findMoney(CHF));
     }
     
     // Davi    
     @Test
     public void containsMoneyInMoneyBag() {
-    	
+    		MoneyBag mb = new MoneyBag();
+    		mb.add(m12CHF);
+    		mb.add(m14BRL);
+    		
+    		assertTrue(mb.contains(m14BRL));
+    		assertFalse(mb.contains(m14CHF));
+    		
+    		mb.add(m14CHF);
+    		Money expected = new Money(CHF);
+    		expected.setAmount(26);
+    		assertTrue(mb.contains(expected));
     }
     
     @Test
