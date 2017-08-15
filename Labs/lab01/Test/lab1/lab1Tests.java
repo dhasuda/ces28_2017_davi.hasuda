@@ -63,6 +63,52 @@ public class lab1Tests {
         newMoney.setCurrency(BRL);
         assertEquals(newMoney, m14BRL);
     }
+     // Nahum
+    @Test
+    public void emptyMoneyBag() {
+    	
+    }
+    // Nahum    
+    @Test
+    public void addMoneyToMoneyBag() {
+    		
+    }
+    // Nahum
+    @Test
+    public void removeFromMoneyBag() {
+    	
+    }
+    
+    
+    // Davi
+    @Test
+    public void findMoneyInMoneyBag() {
+    	
+    }
+    
+    // Davi    
+    @Test
+    public void containsMoneyInMoneyBag() {
+    	
+    }
+    
+    @Test
+    public void addMoneyToMoney() {
+    		Money newMoney = new Money(CHF);
+    		newMoney.setAmount(18);
+    		
+    		Money expectedMoney = new Money(CHF);
+    		expectedMoney.setAmount(30);
+    		assertEquals(newMoney.add(m12CHF), expectedMoney);
+    		
+    		MoneyBag expectedMoneyBag = new MoneyBag();
+    		expectedMoneyBag.add(m12CHF);
+    		newMoney.setCurrency(BRL);
+    		expectedMoneyBag.add(newMoney);
+    		
+    		assertEquals(expectedMoneyBag, newMoney.add(m12CHF));
+    		
+    }
 
     @Test
     public void valueInBRLTest() {

@@ -15,7 +15,7 @@ public class MoneyBag implements MoneyInterface {
         return (this._monies==null || this._monies.isEmpty());
     }
 
-    public void add(Money money) {
+    public MoneyInterface add(Money money) {
         for (Money m : this._monies) {
             if (money.getCurrency().equals(m.getCurrency())) {
                 m.add(money);
@@ -23,22 +23,26 @@ public class MoneyBag implements MoneyInterface {
             }
         }
         this._monies.add(money);
+        return this;
     }
 
-    public void add(MoneyBag moneyBag) {
+    public MoneyBag add(MoneyBag moneyBag) {
         for (Money m : moneyBag.getMonies()) {
             this.add(m);
         }
+        return this;
     }
 
-    public void remove(Money m) {
+    public MoneyBag remove(Money m) {
         this._monies.remove(m);
+        return this;
     }
 
-    public void remove(MoneyBag moneyBag) {
+    public MoneyBag remove(MoneyBag moneyBag) {
         for (Money m : moneyBag.getMonies()) {
             this.remove(m);
         }
+        return this;
     }
 
     public Money findMoney(String currency) {

@@ -10,10 +10,17 @@ public class Money implements MoneyInterface {
     }
 
     public MoneyInterface add(Money m) {
-        Money money = new Money(m.getCurrency());
-        money.setAmount(this.getAmount() + m.getAmount());
-        money.setCurrency(this.getCurrency());
-        return money;
+    		if (this.getCurrency().equals(m.getCurrency())) {
+    			Money money = new Money(m.getCurrency());
+    			money.setAmount(this.getAmount() + m.getAmount());
+    			return money;
+    		}
+    		MoneyBag mb = new MoneyBag();
+    		Money addedMoney = new Money(m.getCurrency());
+    		addedMoney.setAmount(m.getAmount());
+    		mb.add(addedMoney);
+    		mb.add(this);
+    		return mb;
     }
 
     public int getAmount()
