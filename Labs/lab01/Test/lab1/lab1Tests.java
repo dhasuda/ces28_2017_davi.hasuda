@@ -1,5 +1,7 @@
 package lab1;
 
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -43,7 +45,6 @@ public class lab1Tests {
         assertTrue(expected.getCurrency().equals(CHF));
 
         expected = new Money(BRL);
-        //expected.setCurrency("BRL");
         expected.setAmount(12378590);
         assertTrue(expected.getCurrency().equals(BRL));
         assertTrue(expected.getAmount() == 12378590);
@@ -53,7 +54,6 @@ public class lab1Tests {
     public void addTestEquals() {
         Money newMoney = new Money(CHF);
         newMoney.setAmount(12);
-        //newMoney.setCurrency("CHF");
 
         assertEquals(newMoney, m12CHF);
 
@@ -63,24 +63,101 @@ public class lab1Tests {
         newMoney.setCurrency(BRL);
         assertEquals(newMoney, m14BRL);
     }
-     // Nahum
+
     @Test
     public void emptyMoneyBag() {
+    	MoneyBag newMoneyBag = new MoneyBag();
+    	m12CHF = new Money(CHF);
+        m12CHF.setAmount(12);
+
+        m14CHF = new Money(CHF);
+        m14CHF.setAmount(14);
+
+        m14BRL = new Money(BRL);
+        m14BRL.setAmount(14);
     	
+        newMoneyBag.add(m12CHF);
+        newMoneyBag.add(m14CHF);
+        newMoneyBag.add(m14BRL);
+        assertTrue(!newMoneyBag.isEmpty());
+        
+        newMoneyBag.remove(m14CHF);
+        assertTrue(!newMoneyBag.isEmpty());
+        
+        newMoneyBag.remove(m14BRL);
+        assertTrue(!newMoneyBag.isEmpty());
+        
+        newMoneyBag.remove(m12CHF);
+        assertTrue(newMoneyBag.isEmpty());
     }
-    // Nahum    
+    
     @Test
-    public void addMoneyToMoneyBag() {
-    		
+    public void getMoneyBag() {
+    	MoneyBag newMoneyBag = new MoneyBag();
+    	m12CHF = new Money(CHF);
+        m12CHF.setAmount(12);
+
+        m14CHF = new Money(CHF);
+        m14CHF.setAmount(14);
+
+        m14BRL = new Money(BRL);
+        m14BRL.setAmount(14);
+        
+        newMoneyBag.add(m12CHF);
+               
+        newMoneyBag.add(m14BRL);
+        List<Money> monies =  newMoneyBag.getMonies();
+        assertTrue(monies.contains(m12CHF));
+        assertTrue(monies.contains(m14BRL));
+        assertEquals(monies.size(), 2);
+        
+        newMoneyBag.remove(m12CHF);
+        newMoneyBag.add(m14CHF);
+        
+        monies = newMoneyBag.getMonies();
+        assertTrue(monies.contains(m14CHF));
+        newMoneyBag.remove(m14CHF);
+        monies = newMoneyBag.getMonies();
+        assertEquals(monies.size(),1);
+        
+        
+        
+        
+//        assertTrue(newMoneyBag.getMonies().iterator().next().equals(m14BRL));
+        
+//        newMoneyBag.remove(m12CHF);
+//        newMoneyBag.remove(m14BRL);
+//        newMoneyBag.add(m14CHF);
+//        assertTrue(newMoneyBag.getMonies().iterator().equals(m14CHF));
     }
-    // Nahum
+  
     @Test
-    public void removeFromMoneyBag() {
-    	
+    public void addAndRemoveMoneyToMoneyBag() {
+    	MoneyBag newMoneyBag = new MoneyBag();
+    	m12CHF = new Money(CHF);
+        m12CHF.setAmount(12);
+        newMoneyBag.add(m12CHF);
+        assertTrue(newMoneyBag.contains(m12CHF));
+        newMoneyBag.remove(m12CHF);
+        assertFalse(newMoneyBag.contains(m12CHF));
+        
+        m14CHF = new Money(CHF);
+        m14CHF.setAmount(14);
+        newMoneyBag.add(m14CHF);
+        assertTrue(newMoneyBag.contains(m14CHF));
+        newMoneyBag.remove(m14CHF);
+        assertFalse(newMoneyBag.contains(m14CHF));
+
+        m14BRL = new Money(BRL);
+        m14BRL.setAmount(14);
+        newMoneyBag.add(m14BRL);
+        assertTrue(newMoneyBag.contains(m14BRL));
+        newMoneyBag.remove(m14BRL);
+        assertFalse(newMoneyBag.contains(m14BRL));
     }
     
     
-    // Davi
+
     @Test
     public void findMoneyInMoneyBag() {
     		MoneyBag mb = new MoneyBag();
@@ -95,7 +172,7 @@ public class lab1Tests {
     		assertEquals(expected, mb.findMoney(CHF));
     }
     
-    // Davi    
+
     @Test
     public void containsMoneyInMoneyBag() {
     		MoneyBag mb = new MoneyBag();
