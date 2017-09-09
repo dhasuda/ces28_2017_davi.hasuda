@@ -1,7 +1,9 @@
 import static org.junit.Assert.*;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 public class lab2Tests {
 	
@@ -18,7 +20,7 @@ public class lab2Tests {
 		assertEquals(3, CalculadoraString.add("1 , 2"));
 		assertEquals(3, CalculadoraString.add("   1 , 2"));
 		assertEquals(3, CalculadoraString.add("01 , 002"));
-		//assertEquals(6, CalculadoraString.add("1,2,3")); // Isso vale??
+		assertEquals(6, CalculadoraString.add("1,2,3"));
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
@@ -43,17 +45,36 @@ public class lab2Tests {
 		assertEquals(1, CalculadoraString.add("1,\n"));
 		assertEquals(3, CalculadoraString.add("1\n2"));
 	}
-	/*
+	
 	@Test
 	public void test4() {
-		assertEquals(3, CalculadoraString.add("//[;]\\n1;2"));
-		assertEquals(10, CalculadoraString.add("//[;]\\n1;2,3\\n4")); // Isso vale?
-		assertEquals(3, CalculadoraString.add("//[ ]\\n1 2"));
+		assertEquals(3, CalculadoraString.add("//[;]\n1;2"));
+		assertEquals(10, CalculadoraString.add("//[;]\n1;2,3\n4"));
+		assertEquals(3, CalculadoraString.add("//[ ]\n1 2"));
+	}
+	
+	@Rule
+	public ExpectedException exceptionExpected = ExpectedException.none();
+	
+	@Test
+	public void test5a() {
+		exceptionExpected.expect(IllegalArgumentException.class);
+		exceptionExpected.expectMessage("negativos proibidos [-1]");
+		CalculadoraString.add("-1");
 	}
 	
 	@Test
-	public void test5() {
-		// Não entendi
+	public void test5b() {
+		exceptionExpected.expect(IllegalArgumentException.class);
+		exceptionExpected.expectMessage("negativos proibidos [-1 -2]");
+		CalculadoraString.add("-1, -2");
+	}
+	
+	@Test
+	public void test5c() {
+		exceptionExpected.expect(IllegalArgumentException.class);
+		exceptionExpected.expectMessage("negativos proibidos [-2 -3 -4]");
+		CalculadoraString.add("//[;]\n1;-2,-3\n-4");
 	}
 	
 	@Test
@@ -64,20 +85,20 @@ public class lab2Tests {
 	
 	@Test
 	public void test7() {
-		assertEquals(6, CalculadoraString.add("//[***]\\n1***2***3"));
-		assertEquals(10, CalculadoraString.add("//[***]\\n1***2,3\\n4"));
+		assertEquals(6, CalculadoraString.add("//[***]\n1***2***3"));
+		assertEquals(10, CalculadoraString.add("//[***]\n1***2,3\n4"));
 	}
 	
 	@Test
 	public void test8() {
-		assertEquals(6, CalculadoraString.add("//[*][%]\\n1*2%3"));
-		assertEquals(15, CalculadoraString.add("//[*][%]\\n1*2%3\\n4,5"));
+		assertEquals(6, CalculadoraString.add("//[*][%]\n1*2%3"));
+		assertEquals(15, CalculadoraString.add("//[*][%]\n1*2%3\n4,5"));
 	}
 	
 	@Test
 	public void test9() {
-		assertEquals(6, CalculadoraString.add("//[***][%%]\\n1***2%%3"));
-		assertEquals(15, CalculadoraString.add("//[***][%%]\\n1***2%%3\\n4,5"));
+		assertEquals(6, CalculadoraString.add("//[***][%%]\n1***2%%3"));
+		assertEquals(15, CalculadoraString.add("//[***][%%]\n1***2%%3\n4,5"));
 	}
-	*/
+	
 }
