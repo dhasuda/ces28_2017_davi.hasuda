@@ -21,6 +21,8 @@ public class lab2Tests {
 		assertEquals(3, CalculadoraString.add("   1 , 2"));
 		assertEquals(3, CalculadoraString.add("01 , 002"));
 		assertEquals(6, CalculadoraString.add("1,2,3"));
+		assertEquals(6, CalculadoraString.add("1,2 3"));
+		assertEquals(10, CalculadoraString.add("1 ,  2  3 ,  4"));
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
@@ -38,6 +40,7 @@ public class lab2Tests {
 		assertEquals(0, CalculadoraString.add(","));
 		assertEquals(0, CalculadoraString.add(",, ,"));
 		assertEquals(1, CalculadoraString.add("1,,"));
+		assertEquals(10, CalculadoraString.add(", ,1 ,  2  3 ,  ,4,,,"));
 	}
 	
 	@Test
@@ -84,9 +87,19 @@ public class lab2Tests {
 	}
 	
 	@Test
-	public void test7() {
+	public void test7a() {
 		assertEquals(6, CalculadoraString.add("//[***]\n1***2***3"));
 		assertEquals(10, CalculadoraString.add("//[***]\n1***2,3\n4"));
+	}
+	
+	@Test (expected=IllegalArgumentException.class)
+	public void test7b() {
+		assertEquals(6, CalculadoraString.add("//[***]\n1***2*3"));
+	}
+	
+	@Test
+	public void test7c() {
+		assertEquals(6, CalculadoraString.add("//[*]\n1***2*3"));
 	}
 	
 	@Test
@@ -96,9 +109,25 @@ public class lab2Tests {
 	}
 	
 	@Test
-	public void test9() {
+	public void test9a() {
 		assertEquals(6, CalculadoraString.add("//[***][%%]\n1***2%%3"));
 		assertEquals(15, CalculadoraString.add("//[***][%%]\n1***2%%3\n4,5"));
+	}
+	
+	@Test
+	public void test9b() {
+		assertEquals(6, CalculadoraString.add("//[***][%%]\n1***2%%***%%%%3"));
+		assertEquals(15, CalculadoraString.add("//[***][%%]\n1***2%%3\n4,5"));
+	}
+	
+	@Test (expected=IllegalArgumentException.class)
+	public void test9c() {
+		assertEquals(6, CalculadoraString.add("//[***][%%]\n1***2%%%***%%%%3"));
+	}
+	
+	@Test (expected=IllegalArgumentException.class)
+	public void test9d() {
+		assertEquals(15, CalculadoraString.add("//[***][%%]\n1***2%%;3\n4,5"));
 	}
 	
 }
