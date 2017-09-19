@@ -7,38 +7,33 @@ public class CalculadoraString {
 	 * Main method to be implemented for this lab
 	 * */
 	static public int add(String s) throws IllegalArgumentException {
-		// Checking for new delimiters
-		Set<String> delimiters = new HashSet<String>();
+		// Checking for new delimeters
+		Set<String> delimeters = new HashSet<String>();
 		try {
 			if (s.substring(0, 3).compareTo("//[") == 0) {
 				s = s.substring(2);
 				while (s.charAt(0) == '[') {
-					if (s.indexOf("]") > 0)
-					{
-						int lastIndexDelimeter = s.indexOf("]");
-						if (lastIndexDelimeter > 1) {
-							String newDelimeter = s.substring(1, lastIndexDelimeter);
-							delimiters.add(newDelimeter);
-							s = s.substring(lastIndexDelimeter + 1);
-						} else {
-							// Blank delimiter
+					int lastIndexDelimeter = s.indexOf("]");
+					if (lastIndexDelimeter > 1) {
+						String newDelimeter = s.substring(1, lastIndexDelimeter);
+						if (newDelimeter.isEmpty()) {
 							throw new IllegalArgumentException();
 						}
+						delimeters.add(newDelimeter);
+						s = s.substring(lastIndexDelimeter + 1);
 					} else {
-						// Doesn't have a closing "]" for some delimiter definition
 						throw new IllegalArgumentException();
 					}
 				}
-				s = s.substring(1); // Advances to next character
+				s = s.substring(1); // remove the '\n'
 			}
 		} catch (IndexOutOfBoundsException e) {
-			// In case substring(0,3) is greater than the string's own size
-			// Do nothing
+			// Make nothing
 		}
 		
+		
 		s = s.replaceAll("\n", ",");
-		s = s.replaceAll(" ", ",");
-		for (String delim: delimiters) {
+		for (String delim: delimeters) {
 			s = s.replace(delim, ",");
 		}
 		
@@ -72,18 +67,17 @@ public class CalculadoraString {
 			if (separatorIndex < s.length()-1) { // Separator is not the last character in the string
 				secondSubstring = s.substring(separatorIndex+1);
 			}
-		}		
+		}
+		// Removing all spaces from string
+		firstSubstring = firstSubstring.replaceAll(" ","");
+		secondSubstring = secondSubstring.replaceAll(" ","");
+		
 		
 		int firstInt = 0;
 		int secondInt = 0;
 		try {
 			if (!firstSubstring.isEmpty()) {
-				try {
-					firstInt = Integer.parseInt(firstSubstring);
-				} catch(IllegalArgumentException e) {
-					throw e;
-				}
-				
+				firstInt = Integer.parseInt(firstSubstring);
 			}
 		} catch (NumberFormatException e) {
 			throw new IllegalArgumentException();
