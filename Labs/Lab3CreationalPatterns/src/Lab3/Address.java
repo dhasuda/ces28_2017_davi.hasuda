@@ -10,4 +10,8 @@ public class Address {
 	public String getName() {
 		return this.name;
 	}
+	
+	public void setDecoratedName(String decoratedAddressName) {
+		this.name = decoratedAddressName;
+	}
 }
